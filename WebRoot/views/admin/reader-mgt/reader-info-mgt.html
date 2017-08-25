@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/dashboard.css">
+    <title>读者信息管理</title>
+</head>
+<body class="container-fluid">
+    <h1 class="page-header">读者信息管理</h1>
+    <div id="reader-info-mgt-form" >
+        <button type="button" class="btn btn-primary" v-on:click="add">添加读者</button>
+        <br><br>
+        <table class="table table-bordered table-hover table-condensed table-striped">
+            <thead>
+            <tr>
+                <th>条形码</th>
+                <th>姓名</th>
+                <th>读者类型</th>
+                <th>证件类型</th>
+                <th>证件号码</th>
+                <th>电话</th>
+                <th>Email</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="reader in readers">
+                <td>{{ reader["barCode"] }}</td>
+				<td>{{ reader["name"] }}</td>
+				<td>{{ reader["readerType"].name }}</td>
+				<td>{{ reader["certType"] }}</td>
+				<td>{{ reader["certNumber"] }}</td>
+				<td>{{ reader["phone"] }}</td>
+				<td>{{ reader["email"] }}</td>
+                <td>
+                    <button :name="reader['id']" type="button" class="btn btn-warning" v-on:click="modify">修改</button>&nbsp;&nbsp;
+                    <button :name="reader['id']" type="button" class="btn btn-danger" v-on:click="del">删除</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+	<div id="reader-add-modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">添加读者</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="reader-add-barCode" class="col-sm-4 col-md-4 control-label">条形码</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" class="form-control" id="reader-add-barCode" v-model="reader['barCode']" disabled>
+                            </div>
+                        </div>
+						<div class="form-group">
+                            <label for="reader-add-name" class="col-sm-4 col-md-4 control-label">姓名</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" class="form-control" id="reader-add-name" v-model="reader['name']">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reader-add-type" class="col-sm-4 col-md-4 control-label">读者类型</label>
+                            <div class="col-sm-8 col-md-6">
+                                <select id="reader-add-type" class="form-control">
+								    <option name="reader-add-type" v-for="per in reader['readerTypes']" :value="per['id']">{{ per["name"] }}</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reader-add-cert-type" class="col-sm-4 col-md-4 control-label">证件类型</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" class="form-control" id="reader-add-cert-type" v-model="reader['certType']">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reader-add-cert-number" class="col-sm-4 col-md-4 control-label">证件号码</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" class="form-control" id="reader-add-cert-number" v-model="reader['certNumber']">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reader-add-phone" class="col-sm-4 col-md-4 control-label">电话</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" class="form-control" id="reader-add-phone" v-model="reader['phone']">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reader-add-email" class="col-sm-4 col-md-4 control-label">Email</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" class="form-control" id="reader-add-email" v-model="reader['email']">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" v-on:click="submit" data-dismiss="modal">提交</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <script type="text/javascript" src="../../../components/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="../../../components/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../components/vue/vue.js"></script>
+    <script type="text/javascript" src="../../../js/admin/reader-mgt/reader-info-mgt.js"></script>
+</body>
+</html>

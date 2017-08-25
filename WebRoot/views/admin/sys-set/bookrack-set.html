@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/dashboard.css">
+    <title>书架设置</title>
+</head>
+<body class="container-fluid">
+    <h1 class="page-header">书架设置</h1>
+    <div id="bookrack-set-form" >
+        <button type="button" class="btn btn-primary" v-on:click="add">添加书架</button>
+        <br><br>
+        <table class="table table-bordered table-hover table-condensed table-striped">
+            <thead>
+            <tr>
+                <th>书架名称</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="bookrack in bookracks">
+                <td><input type="text" class="form-control" :value="bookrack['pressmark']" v-model="bookrack['pressmark']"></td>
+                <td>
+                    <button :name="bookrack['id']" type="button" class="btn btn-warning" v-on:click="modify">修改</button>&nbsp;&nbsp;
+                    <button :name="bookrack['id']" type="button" class="btn btn-danger" v-on:click="del">删除</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="bookrack-add-modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">添加书架</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="bookrack-add-name" class="col-sm-2 col-md-4 control-label">书架名</label>
+                            <div class="col-sm-10 col-md-6">
+                                <input type="email" class="form-control" id="bookrack-add-name" v-model="bookrack['pressmark']">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" v-on:click="submit" data-dismiss="modal">提交</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script type="text/javascript" src="../../../components/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="../../../components/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../components/vue/vue.js"></script>
+    <script type="text/javascript" src="../../../js/admin/sys-set/bookrack-set.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+/applicationContext.xml
+/db.properties
+/hibernate.cfg.xml
+/org/
+/springDispatcher-servlet.xml

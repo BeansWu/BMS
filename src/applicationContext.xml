@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- 需要自动扫描的 package -->
+	<context:component-scan base-package="org.bms.entity"></context:component-scan>
+	<context:component-scan base-package="org.bms.dao"></context:component-scan>
+	<context:component-scan base-package="org.bms.service"></context:component-scan>
+	<context:component-scan base-package="org.bms.controller"></context:component-scan>
+	
+	<!-- 引入数据库配置文件 -->
+	<context:property-placeholder location="classpath:db.properties" />
+	<!-- 配置 dataSource,使用更具有灵活性的 c3p0 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="user" value="${user}"></property>
+		<property name="password" value="${password}"></property>
+		<property name="jdbcUrl" value="${url}"></property>
+		<property name="driverClass" value="${driverClass}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+	</bean>
+	
+	<!-- sessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+		<!-- 自动扫描的实体类的包 -->
+		<property name="packagesToScan">
+			<list>
+				<value>org.bms.entity</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 声明使用注解型事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>

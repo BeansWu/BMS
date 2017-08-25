@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/dashboard.css">
+    <title>图书借阅查询</title>
+</head>
+<body class="container-fluid">
+    <h1 class="page-header">图书借阅查询</h1>
+    <div id="borrow-record-search" >
+    	<form class="form-horizontal">
+			<div class="form-group">
+	            <label for="search-basis" class="col-sm-2 col-md-2 control-label">查询依据</label>
+	            <div class="col-sm-4 col-md-3">
+	                <input type="text" class="form-control" id="search-basis" v-model="basis" :value="basis">
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label for="borrow-begin-date" class="col-sm-2 col-md-2 control-label">借阅时间范围</label>
+	            <div class="col-sm-3 col-md-3">
+	                <input type="date" class="form-control" id="borrow-date-lower-bound" v-model="borrowDateLowerBound" :value="borrowDateLowerBound">
+	            </div>
+	            <div class="col-sm-3 col-md-3">
+	                <input type="date" class="form-control" id="borrow-date-upper-bound" v-model="borrowDateUpperBound" :value="borrowDateUpperBound">
+	            </div>
+	            <div class="col-sm-1 col-md-1">
+	                <button type="button" class="btn btn-default" id="reset-borrow-date-range" v-on:click="resetBorrowDateRange">重置</button>
+	            </div>
+	        </div>
+			<div class="form-group">
+				<div class="btn-group col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						   依据类型 <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a v-on:click="findByBasis" id="book-bar-code">图书条形码</a></li>
+						<li><a v-on:click="findByBasis" id="book-name">图书名称</a></li>
+						<li><a v-on:click="findByBasis" id="reader-bar-code">读者条形码</a></li>
+						<li><a v-on:click="findByBasis" id="reader-name">读者姓名</a></li>
+					</ul>
+				</div>
+			</div>
+		</form>
+        <table class="table table-bordered table-hover table-condensed table-striped">
+            <thead>
+            <tr>
+                <th>图书条形码</th>
+                <th>图书名称</th>
+                <th>读者条形码</th>
+                <th>读者名称</th>
+                <th>借阅时间</th>
+                <th>应还时间</th>
+                <th>是否归还</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="borrowRecord in borrowRecords">
+                <td>{{ borrowRecord["book"].barCode }}</td>
+				<td>{{ borrowRecord["book"].name }}</td>
+				<td>{{ borrowRecord["reader"].barCode }}</td>
+				<td>{{ borrowRecord["reader"].name }}</td>
+				<td>{{ borrowRecord.borrowDate }}</td>
+				<td>{{ borrowRecord.returnDate }}</td>
+				<td>{{ borrowRecord.hasReturn == true?"已归还":"未归还" }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <script type="text/javascript" src="../../../components/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="../../../components/moment/moment.min.js"></script>
+    <script type="text/javascript" src="../../../components/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../components/vue/vue.js"></script>
+    <script type="text/javascript" src="../../../js/admin/sys-search/borrow-record-search.js"></script>
+</body>
+</html>

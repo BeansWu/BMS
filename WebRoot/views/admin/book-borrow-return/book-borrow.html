@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/dashboard.css">
+    <title>图书借阅</title>
+</head>
+<body class="container-fluid">
+    <h1 class="page-header">图书借阅</h1>
+    <div id="book-borrow-form" >
+        <h3 class="page-header">读者验证</h3>
+        <div id="reader-verification">
+        	<form class="form-horizontal">
+        		<div class="form-group">
+				    <label for="reader-bar-code" class="col-sm-2 control-label">读者条形码</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-bar-code" v-model="reader['barCode']" :value="reader['barCode']">
+				    </div>
+				</div>
+				<div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				        <button type="button" class="btn btn-primary" v-on:click="submit">确定</button>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="reader-name" class="col-sm-2 control-label">姓名</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-name" :value="reader['name']" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="reader-type" class="col-sm-2 control-label">读者类型</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-type" :value="reader['readerType'].name" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="can-borrow" class="col-sm-2 control-label">可借数量</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="can-borrow" :value="reader['readerType'].canBorrow" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="has-borrow" class="col-sm-2 control-label">已借数量</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="has-borrow" :value="reader['hasBorrow']" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="reader-certificate-type" class="col-sm-2 control-label">证件类型</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-certificate-type" :value="reader['certType']" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="reader-certificate-number" class="col-sm-2 control-label">证件号码</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-certificate-number" :value="reader['certNumber']" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="reader-phone" class="col-sm-2 control-label">电话</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-phone" :value="reader['phone']" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="reader-email" class="col-sm-2 control-label">电子邮箱</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-email" :value="reader['email']" readonly>
+				    </div>
+				</div>
+        	</form>
+        </div>
+        
+        <h3 class="page-header">图书验证</h3>
+        <div id="book-verification">
+        	<form class="form-horizontal">
+				<div class="form-group">
+					<label for="book-basis" class="col-sm-2 control-label">依据</label>
+					<div class="col-sm-4">
+				      	<input type="text" class="form-control" id="book-basic" v-model="basis" :value="basis">
+				    </div>
+			    </div>
+				<div class="form-group">
+					<div class="btn-group col-sm-offset-2 col-sm-10">
+					  	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    	依据类型 <span class="caret"></span>
+					  	</button>
+					  	<ul class="dropdown-menu">
+					    	<li><a v-on:click="submit" id="book-bar-code">图书条形码</a></li>
+					    	<li><a v-on:click="submit" id="book-name">图书名称</a></li>
+					  	</ul>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="book-name" class="col-sm-2 control-label">图书名称</label>
+					<div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-certificate-number" :value="book['name']" readonly>
+				    </div>
+			    </div>
+			    <div class="form-group">
+					<label for="borrow-date" class="col-sm-2 control-label">借阅时间</label>
+					<div class="col-sm-4">
+				      	<input type="text" class="form-control" id="borrow-date" :value="book['borrowDate']" readonly>
+				    </div>
+			    </div>
+			    <div class="form-group">
+					<label for="return-date" class="col-sm-2 control-label">应还时间</label>
+					<div class="col-sm-4">
+				      	<input type="text" class="form-control" id="return-date" :value="book['returnDate']" readonly>
+				    </div>
+			    </div>
+			    <div class="form-group">
+					<label for="press" class="col-sm-2 control-label">出版社</label>
+					<div class="col-sm-4">
+				      	<input type="text" class="form-control" id="press" :value="book['bookNumber'].press" readonly>
+				    </div>
+			    </div>
+			    <div class="form-group">
+					<label for="bookrack" class="col-sm-2 control-label">书架</label>
+					<div class="col-sm-4">
+				      	<input type="text" class="form-control" id="bookrack" :value="book['bookrack'].pressmark" readonly>
+				    </div>
+			    </div>
+			    <div class="form-group">
+					<label for="price" class="col-sm-2 control-label">定价(元)</label>
+					<div class="col-sm-4">
+				      	<input type="text" class="form-control" id="price" :value="book['price']" readonly>
+				    </div>
+			    </div>
+        	</form>
+        </div>
+        <h3 class="page-header">借阅</h3>
+        <div id="book-borrow">
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+				   	<button type="button" class="btn btn-danger btn-lg" v-on:click="submit">完成借阅</button>
+				</div>
+			</div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="../../../components/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="../../../components/moment/moment.min.js"></script>
+    <script type="text/javascript" src="../../../components/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../components/vue/vue.js"></script>
+    <script type="text/javascript" src="../../../js/admin/book-borrow-return/book-borrow.js"></script>
+</body>
+</html>

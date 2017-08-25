@@ -1,0 +1,47 @@
+.head {
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 10px;
+    height: 39px;
+    width: 380px;
+}
+.container {
+    margin: auto;
+    margin-top: 50px;
+    height: 300px;
+    width: 400px;
+}
+.panel {
+    margin: auto;
+    margin-top: 20px;
+}
+.form-signin {
+    margin: auto;
+    margin-bottom: 20px;
+    width: 196px;
+}
+.submit {
+    margin: auto;
+    width: 170px;
+    height: 40px;
+}
+.login {
+    margin: auto;
+    margin-left: 5px;
+    width: 60px;
+    height: 40px;
+    display: inline;
+}
+.reset {
+    margin: auto;
+    margin-left: 20px;
+    width: 60px;
+    height: 40px;
+    display: inline;
+}
+.register {
+	height: 20px;
+	width: 40px;
+	margin-top: 5px;
+	margin-left: 140px;
+}

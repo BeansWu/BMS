@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/dashboard.css">
+    <title>图书归还</title>
+</head>
+<body class="container-fluid">
+    <h1 class="page-header">图书归还</h1>
+    <div id="book-return-form" >
+        <h3 class="page-header">读者验证</h3>
+        <div id="reader-verification">
+        	<form class="form-horizontal">
+        		<div class="form-group">
+				    <label for="reader-bar-code" class="col-sm-2 control-label">读者条形码</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-bar-code" v-model="reader['barCode']" :value="reader['barCode']">
+				    </div>
+				</div>
+				<div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				        <button type="button" class="btn btn-primary" v-on:click="submit">确定</button>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="reader-name" class="col-sm-2 control-label">姓名</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-name" :value="reader['name']" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="reader-type" class="col-sm-2 control-label">读者类型</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-type" :value="reader['readerType'].name" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="can-borrow" class="col-sm-2 control-label">可借数量</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="can-borrow" :value="reader['readerType'].canBorrow" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="has-borrow" class="col-sm-2 control-label">已借数量</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="has-borrow" :value="reader['hasBorrow']" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="reader-certificate-type" class="col-sm-2 control-label">证件类型</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-certificate-type" :value="reader['certType']" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="reader-certificate-number" class="col-sm-2 control-label">证件号码</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-certificate-number" :value="reader['certNumber']" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="reader-phone" class="col-sm-2 control-label">电话</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-phone" :value="reader['phone']" readonly>
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="reader-email" class="col-sm-2 control-label">电子邮箱</label>
+				    <div class="col-sm-4">
+				      	<input type="text" class="form-control" id="reader-email" :value="reader['email']" readonly>
+				    </div>
+				</div>
+        	</form>
+        </div>
+        
+        <h3 class="page-header">已借图书</h3>
+        <div id="book-return">
+			<table class="table table-striped table-bordered table-hover table-condensed">
+				<thead>
+					<tr>
+						<th>图书名称</th>
+						<th>借阅时间</th>
+						<th>应还时间</th>
+						<th>出版社</th>
+						<th>书架</th>
+						<th>单价(元)</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="book in books">
+						<td>{{ book["name"] }}</td>
+						<td>{{ book["borrowDate"] }}</td>
+						<td>{{ book["returnDate"] }}</td>
+						<td>{{ book["bookNumber"].press }}</td>
+						<td>{{ book["bookrack"].pressmark }}</td>
+						<td>{{ book["price"] }}</td>
+						<td>
+							<button type="button" class="btn btn-warning" :id="book['id']" v-on:click="remand">归还</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="../../../components/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="../../../components/moment/moment.min.js"></script>
+    <script type="text/javascript" src="../../../components/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../components/vue/vue.js"></script>
+    <script type="text/javascript" src="../../../js/admin/book-borrow-return/book-return.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../components/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/common.css">
+<link rel="stylesheet" href="../../css/login.css">
+<title>图书管理系统</title>
+</head>
+<body>
+  <div class="h1 head">图书管理系统-后台登陆</div>
+  
+  <div class="container">
+    <div class="panel panel-primary">
+      <div class="panel-heading"><h3 class="panel-title">用户登陆</h3></div>
+        <div class="panel body">
+          <form id="login-form" class="form-signin" name="logForm" method="post">
+            <div class="input-group">
+              <input type="text" v-model="name" :value="name" name="name" class="form-control" placeholder="用户名" required autofocus>
+            </div>
+            <div class="input-group">
+              <input type="password" v-model="password" :value="password" name="password" class="form-control" placeholder="密码" required autofocus>
+            </div>
+            <br>
+            <div class="submit">
+              <div class="login">
+                <button class="btn btn-primary" v-on:click="submit" type="button">&nbsp;&nbsp;登陆&nbsp;&nbsp;</button>
+              </div>
+              <div class="reset">
+                <button class="btn btn-warning" type="reset">&nbsp;&nbsp;重置&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </form><!-- form-signin -->
+        </div><!-- div panel body -->
+      </div><!-- div panel -->
+  </div><!-- div container -->
+  
+  <div class="copyright">@2017 Powered by Andrew</div>
+  
+  <script type="text/javascript" src="../../components/jquery/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="../../components/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../components/vue/vue.js"></script>
+  <script type="text/javascript" src="../../js/admin/login.js"></script>
+</body>
+</html>

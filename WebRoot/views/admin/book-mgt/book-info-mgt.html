@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/dashboard.css">
+    <title>图书信息管理</title>
+</head>
+<body class="container-fluid">
+    <h1 class="page-header">图书信息管理</h1>
+    <div id="book-info-mgt-form" >
+        <button type="button" class="btn btn-primary" v-on:click="add">添加图书</button>
+        <br><br>
+        <table class="table table-bordered table-hover table-condensed table-striped">
+            <thead>
+            <tr>
+                <th>条形码</th>
+                <th>图书名称</th>
+                <th>图书类型</th>
+                <th>出版社</th>
+                <th>书架</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="book in books">
+                <td>{{ book["barCode"] }}</td>
+				<td>{{ book["name"] }}</td>
+				<td>{{ book["bookType"].name }}</td>
+				<td>{{ book["bookNumber"].press }}</td>
+				<td>{{ book["bookrack"].pressmark }}</td>
+                <td>
+                    <button :name="book['id']" type="button" class="btn btn-warning" v-on:click="modify">修改</button>&nbsp;&nbsp;
+                    <button :name="book['id']" type="button" class="btn btn-danger" v-on:click="del">删除</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+	<div id="book-add-modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">添加图书</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="book-add-barCode" class="col-sm-4 col-md-4 control-label">条形码</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" class="form-control" id="book-add-barCode" v-model="book['barCode']" disabled>
+                            </div>
+                        </div>
+						<div class="form-group">
+                            <label for="book-add-name" class="col-sm-4 col-md-4 control-label">图书名称</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" class="form-control" id="book-add-name" v-model="book['name']">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-add-type" class="col-sm-4 col-md-4 control-label">图书类型</label>
+                            <div class="col-sm-8 col-md-6">
+                                <select id="book-add-type" class="form-control">
+								    <option name="book-add-type" v-for="per in book['bookTypes']" :value="per['id']">{{ per["name"] }}</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-add-author" class="col-sm-4 col-md-4 control-label">作者</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" class="form-control" id="book-add-author" v-model="book['author']">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-add-translator" class="col-sm-4 col-md-4 control-label">译者</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" class="form-control" id="book-add-translator" v-model="book['translator']">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-add-press" class="col-sm-4 col-md-4 control-label">出版社</label>
+                            <div class="col-sm-8 col-md-6">
+                                <select id="book-add-press" class="form-control">
+								    <option name="book-add-press" v-for="per in book['bookNumbers']" :value="per['id']">{{ per["press"] }}</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-add-price" class="col-sm-4 col-md-4 control-label">价格</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" class="form-control" id="book-add-price" v-model="book['price']">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-add-page" class="col-sm-4 col-md-4 control-label">页码</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" class="form-control" id="book-add-price" v-model="book['page']">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-add-bookrack" class="col-sm-4 col-md-4 control-label">书架</label>
+                            <div class="col-sm-8 col-md-6">
+                                <select id="book-add-bookrack" class="form-control">
+								    <option name="book-add-bookrack" v-for="per in book['bookracks']" :value="per['id']">{{ per["pressmark"] }}</option>
+								</select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" v-on:click="submit" data-dismiss="modal">提交</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <script type="text/javascript" src="../../../components/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="../../../components/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../components/vue/vue.js"></script>
+    <script type="text/javascript" src="../../../js/admin/book-mgt/book-info-mgt.js"></script>
+</body>
+</html>

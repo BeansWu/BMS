@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../../components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <title>管理员</title>
+</head>
+<body class="container">
+    <!-- 顶端导航条 -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header"><a class="navbar-brand" href="#">图书管理系统</a></div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><p class="navbar-text">管理员用户：</p></li>
+                    <li><p class="navbar-text">Andrew</p></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- 中部-->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 左侧导航条 -->
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul id="left-nav-tree-part1" class="nav nav-pills nav-stacked nav-sidebar">
+                    <tree-branch :branch="attr"></tree-branch>
+                </ul>
+                <ul id="left-nav-tree-part2" class="nav nav-pills nav-stacked nav-sidebar">
+                    <tree-branch :branch="attr"></tree-branch>
+                </ul>
+                <ul id="left-nav-tree-part3" class="nav nav-pills nav-stacked nav-sidebar">
+                    <tree-branch :branch="attr"></tree-branch>
+                </ul>
+                <ul id="left-nav-tree-part4" class="nav nav-pills nav-stacked nav-sidebar">
+                    <tree-branch :branch="attr"></tree-branch>
+                </ul>
+                <ul id="left-nav-tree-part5" class="nav nav-pills nav-stacked nav-sidebar">
+                    <tree-branch :branch="attr"></tree-branch>
+                </ul>
+                <ul id="left-nav-tree-part6" class="nav nav-pills nav-stacked nav-sidebar">
+                    <li style="margin-left: 10px">
+                    	<a href="#" v-on:click="logout" class="btn btn-link"><span :class="attr['icon']" aria-hidden="true"></span>{{ attr["root"] }}</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 右侧主要内容 -->
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <!-- <library-info></library-info> -->
+                <iframe frameborder="0" src="" style="width:100%; height:1080px;" scrolling="auto" name="ope-part"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../../components/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="../../components/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../components/vue/vue.js"></script>
+    <!-- tree_branch,用到该模板的 js 文件要放在后面 -->
+    <script type="text/x-handlebars-template" id="tree_branch">
+        <li style="margin-left: 10px">
+            <a href="#" v-on:click="toggle" :class="branch['allow']"><span :class="branch['icon']" aria-hidden="true">
+				</span> {{ branch["root"] }}
+			</a>
+            <ul class="nav nav-pills nav-stacked" v-if="show">
+                <li v-for="leave in branch['leaves']">
+                    <a :href="leave['link']" style="margin-left: 20px" target="ope-part" class="btn btn-link">{{ leave["name"] }}</a>
+                </li>
+            </ul>
+        </li>
+    </script>
+    <script type="text/javascript" src="../../js/admin/left-nav-tree.js"></script>
+</body>
+</html>

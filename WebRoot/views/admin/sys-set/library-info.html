@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/dashboard.css">
+    <title>图书馆信息</title>
+</head>
+<body class="container-fluid">
+    <h1 class="page-header">图书馆信息</h1>
+    <form id="library_info_form" class="form-horizontal">
+        <div class="form-group">
+            <label for="library_name" class="col-sm-2 col-md-2 control-label">图书馆名字</label>
+            <div class="col-sm-10 col-md-3">
+                <input type="text" class="form-control" id="library_name" v-model="libraryInfo['name']" :value="libraryInfo['name']">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="library_address" class="col-sm-2 col-md-2 control-label">图书馆地址</label>
+            <div class="col-sm-10 col-md-5">
+                <input type="text" class="form-control" id="library_address" v-model="libraryInfo['address']" :value="libraryInfo['address']">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="library_build_time" class="col-sm-2 col-md-2 control-label">建馆时间</label>
+            <div class="col-sm-10 col-md-2">
+                <input type="date" class="form-control" id="library_build_time" v-model="libraryInfo['buildTime']" :value="libraryInfo['buildTime']">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="library_principal_info" class="col-sm-2 col-md-2 control-label">负责人信息</label>
+            <div class="col-sm-10 col-md-2">
+                <input type="text" class="form-control" id="library_principal_info" v-model="libraryInfo['principal']" :value="libraryInfo['principal']">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="library_contact_info" class="col-sm-2 col-md-2 control-label">联系方式</label>
+            <div class="col-sm-10 col-md-2">
+                <input type="text" class="form-control" id="library_contact_info" v-model="libraryInfo['phone']" :value="libraryInfo['phone']">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type=button v-on:click="save" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/javascript" src="../../../components/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="../../../components/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../components/vue/vue.js"></script>
+    <script type="text/javascript" src="../../../js/admin/sys-set/library-info.js"></script>
+</body>
+</html>
